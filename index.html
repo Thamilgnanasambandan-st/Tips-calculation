@@ -1,0 +1,167 @@
+!
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 300px;
+            background: linear-gradient(90deg, rgba(255, 31, 0, 1) 0%, rgba(16, 110, 226, 0.7441351540616247) 0%);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .header {
+            background: #ffb300;
+            color: white;
+            margin: 0 -15px;
+            text-align: center;
+            padding: 12px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 0;
+        }
+
+        body {
+            background: linear-gradient(90deg, rgba(255, 31, 0, 1) 0%, rgba(108, 14, 10, 0.7441351540616247) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+
+        }
+
+        #totalTip {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #billamt {
+            margin-bottom: 25px;
+            width: 200px;
+        }
+
+        #serviceQual {
+            margin-bottom: 25px;
+            width: 200px;
+        }
+
+        #peopleamt {
+            margin-bottom: 25px;
+            width: 210px;
+        }
+
+        .btn {
+            background: #ffb300;
+            color: white;
+            border: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="header">
+            <h1>Tip Calculator</h1>
+        </div>
+        <div id="calculator">
+
+
+            <form>
+                <p>How much was your bill?
+                </p>
+                ₹ <input id="billamt" type="text" placeholder="Bill Amount">
+
+                <p>How was your service?
+                </p>
+                <select id="serviceQual" class="form-select">
+                    <option disabled selected value="0">-- Choose an Option --</option>
+                    <option value="0.3">30&#37; &#45; Outstanding</option>
+                    <option value="0.2">20&#37; &#45; Good</option>
+                    <option value="0.15">15&#37; &#45; It was OK</option>
+                    <option value="0.1">10&#37; &#45; Bad</option>
+                    <option value="0.05">5&#37; &#45; Terrible</option>
+                </select>
+
+            </form>
+            <p>How many people are sharing the bill?</p>
+            <input id="peopleamt" type="text" placeholder="Number of People"> people
+
+
+        </div>
+        <!--calculator end-->
+        <div id="totalTip"> <button type="button" class="btn btn-primary mr-2 " id="calculate">Calculate!</button>
+            <span><span>₹</span><span id="tip">0.00</span>
+                <small id="each">each</small></span>
+        </div>
+        <!--totalTip end-->
+
+    </div>
+    <!--container end-->
+
+    <script type="text/javascript" src="tipcalculator.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $("#billamt,#peopleamt").keypress(function (evt) {
+            if (evt.which < 48 || evt.which > 57) {
+                evt.preventDefault();
+            }
+        });
+        $("#calculate").click(function () {
+            //  Getting valuse from input fields
+            var billammout = $("#billamt").val();
+            var service = $("#serviceQual").val();
+            var Persons = $("#peopleamt").val();
+            //   Checking condition for null
+            if (billammout != "" && service != "" && Persons != "") {
+                //     checking condition prevent zero
+                if (billammout != 0 && Persons != 0) {
+                    //       calculations
+                    var calculation = (((billammout * service) / Persons).toFixed(2));
+                    $("#totalTip").css("display", "block");
+                    // alert(calculation);
+                    $("#tip").html(calculation);
+                } else {
+                    alert("Bill amount & Persons should not be zero(0)")
+                }
+
+            } else {
+                $("#totalTip").css("display", "none");
+                alert("Must Enter all Values");
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
